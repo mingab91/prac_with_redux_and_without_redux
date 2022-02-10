@@ -1,0 +1,99 @@
+!
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/5.0.0-alpha.0/redux.min.js"
+        integrity="sha512-6WJ7yVV5HDZwZ0RT5CM3FCTgTt5qC5BlfQ9bG43y0BowT5a3GXQqDYaoZgCk+i9vuB1Yj6KdBPQAU8Ra7tV32w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <style>
+        .container {
+            border: 5px solid black;
+            padding: 10px;
+        }
+    </style>
+    <div id="red"></div>
+    <div id="green"></div>
+    <div id="blue"></div>
+    <div id="orange"></div>
+
+    <script>
+        function reducer(state, action){
+            var newState;
+            if(state === undefined){
+                return {color:'yellow'}
+            }else if(action.type === 'CHANGE_COLOR'){
+                newState = {color:action.color};
+            }
+            console.log("action액션, action.type액션.타입, action.color액션컬러, state이전상태, newState변경된상태", action, action.color, action.type, state, newState);
+            return newState;
+            
+        }
+        var store = Redux.createStore(reducer,
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+        console.log("store.getState", store.getState());
+        console.log("store", store);
+
+        function red() {
+            var state = store.getState();
+            document.getElementById("red").innerHTML = `
+                    <div class="container" id="component_red" style="background-color:${state.color}">
+                        <h1>red</h1>
+                        <input type="button" value="fire" onclick='
+                        store.dispatch({type:"CHANGE_COLOR", color:"red"});
+                        '>
+                        </div>
+                    `;
+        }
+        store.subscribe(red);
+        // 디스패치로 리듀서 호출하게 되면 서브스크라이브 렌더된다
+        red();
+
+        function green() {
+            var state = store.getState();
+            document.getElementById("green").innerHTML = `
+                    <div class="container" id="component_green" style="background-color:${state.color}">
+                        <h1>green</h1>
+                        <input type="button" value="fire" onclick='
+                        store.dispatch({type:"CHANGE_COLOR", color:"green"});
+                        '>
+                        </div>
+                    `;
+        }
+        store.subscribe(green);
+        // 디스패치로 리듀서 호출하게 되면 서브스크라이브 렌더된다
+        green();
+        function blue() {
+            var state = store.getState();
+            document.getElementById("blue").innerHTML = `
+                    <div class="container" id="component_blue" style="background-color:${state.color}">
+                        <h1>blue</h1>
+                        <input type="button" value="fire" onclick='
+                        store.dispatch({type:"CHANGE_COLOR", color:"blue"});
+                        '>
+                        </div>
+                    `;
+        }
+        store.subscribe(blue);
+        // 디스패치로 리듀서 호출하게 되면 서브스크라이브 렌더된다
+        blue();
+    </script>
+    function reducer(state, action){
+        var newState;
+        if(state === undefined){
+        return {color:'yellow'}}
+        else if{action.state === "CHANGE_COLOR"}{
+        newState = {color:action.color}}
+        return newState;
+        }
+        
+        var state =store.getState();
+        onclikc=`store.dispatch({type:"CHANGE_COLOR", color:"blue"})`
+        
+        store.subscribe(blue);
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+<html>
+
+<body>
+    <style>
+        .container {
+            border: 5px solid black;
+            padding: 10px;
+        }
+    </style>
+    <div id="red"></div>
+    <div id="green"></div>
+    <div id="blue"></div>
+    <div id="gray"></div>
+    <div id="orange"></div>
+    <script>
+         function gray() {
+            document.getElementById("gray").innerHTML = `
+                <div class="container" id="component_gray">
+                    <h1>gray</h1>
+                    <input type="button" value="change" onclick='
+                    document.getElementById("component_red").style.backgroundColor="gray";
+                    document.getElementById("component_green").style.backgroundColor="gray";
+                    document.getElementById("component_blue").style.backgroundColor="gray";
+                    document.getElementById("component_orange").style.backgroundColor="gray";
+                    document.getElementById("component_gray").style.backgroundColor="gray"
+                    '>
+                    </div>
+                `;
+        }
+        gray();
+        function red() {
+            document.getElementById("red").innerHTML = `
+                <div class="container" id="component_red">
+                    <h1>red</h1>
+                    <input type="button" value="change" onclick='
+                    document.getElementById("component_red").style.backgroundColor="red";
+                    document.getElementById("component_green").style.backgroundColor="red";
+                    document.getElementById("component_blue").style.backgroundColor="red";
+                    document.getElementById("component_orange").style.backgroundColor="red";
+                    document.getElementById("component_gray").style.backgroundColor="red"
+                    '>
+                    </div>
+                `;
+        }
+        red();
+
+        function green() {
+            document.getElementById("green").innerHTML = `
+                <div class="container" id="component_green">
+                    <h1>green</h1>
+                    <input type="button" value="change" onclick='
+                    document.getElementById("component_red").style.backgroundColor="green";
+                    document.getElementById("component_green").style.backgroundColor="green";
+                    document.getElementById("component_blue").style.backgroundColor="green";
+                    document.getElementById("component_orange").style.backgroundColor="green";
+                    document.getElementById("component_gray").style.backgroundColor="green"
+                    '>
+                    </div>
+                `;
+        }
+        green();
+        function blue() {
+            document.getElementById("blue").innerHTML = `
+                <div class="container" id="component_blue">
+                    <h1>blue</h1>
+                    <input type="button" value="change" onclick='
+                    document.getElementById("component_red").style.backgroundColor="blue";
+                    document.getElementById("component_green").style.backgroundColor="blue";
+                    document.getElementById("component_blue").style.backgroundColor="blue";
+                    document.getElementById("component_orange").style.backgroundColor="blue";
+                    document.getElementById("component_gray").style.backgroundColor="blue"
+                    '>
+                    </div>
+                `;
+        }
+        blue();
+        function orange() {
+            document.getElementById("orange").innerHTML = `
+                <div class="container" id="component_orange">
+                    <h1>orange</h1>
+                    <input type="button" value="change" onclick='
+                    document.getElementById("component_red").style.backgroundColor="orange";
+                    document.getElementById("component_green").style.backgroundColor="orange";
+                    document.getElementById("component_blue").style.backgroundColor="orange";
+                    document.getElementById("component_orange").style.backgroundColor="orange";
+                    document.getElementById("component_gray").style.backgroundColor="orange";                    
+                    '>
+                    </div>
+                `;
+        }
+        orange();
+    </script>
+</body>
+
+</html>

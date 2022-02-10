@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/5.0.0-alpha.0/redux.min.js"
+        integrity="sha512-6WJ7yVV5HDZwZ0RT5CM3FCTgTt5qC5BlfQ9bG43y0BowT5a3GXQqDYaoZgCk+i9vuB1Yj6KdBPQAU8Ra7tV32w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <div id="subject"></div>
+    <div id="toc"></div>
+    <div id="control"></div>
+    <div id="article"></div>
+    <script>
+        function TOC() {
+            var state = store.getState();
+            var i = 0;
+            var liTags = '';
+            while (i < state.contents.length) {
+                liTags = liTags + `
+                <li>
+                    <a onclick="
+                    event.preventDefault();
+                    var action = {type:'SELECT', id:${state.contents[i].id}}
+                    store.dispatch(action);
+                    " href="${state.contents[i].id}">
+                        ${state.contents[i].title}
+                        </a>
+                </li>`;
+                i = i + 1;
+            }
+            document.getElementById("toc").innerHTML = `
+    <nav>
+        <ol>
+            ${liTags}
+        </ol>
+    </nav>
+              `}
+        function control() {
+            document.getElementById("control").innerHTML = `
+            <ul>
+            <li><a onclick="
+                event.preventDefault();
+                " href="/create">create</a></li>
+            <li><input type="button" value="삭제 기능 안됨"></li>
+        </ul>
+        `}
+        function article() {
+            var state = store.getState();
+            if (state.mode === 'create') {
+                document.getElementById("article").innerHTML = `
+            <article>
+        <form onsubmit="
+        event.preventDefault();
+        var _title = this.title.value;
+        var _desc = this.desc.value;
+        console.log(this.title.value);
+        store.dispatch({
+            type:'CREATE',
+            title:_title,
+            desc:_desc
+        })
+        ">
+            <p>
+                <input type="text" name="title" placeholder="title">
+             </p>
+            <p>
+                <textarea name="desc" placeholder="description"></textarea>
+            </p>
+            <p>
+                <input type="submit">
+            </p>
+            </form>
+    </article>
+            `
+            } else if (state.mode === 'read') {
+
+            }
+            var i = 0;
+            var aTitle, aDesc;
+            while (i < state.contents.length) {
+                if (state.contents[i].id === state.selected_id) {
+                    aTitle = state.contents[i].title;
+                    aDesc = state.contents[i].desc;
+                    break;
+                }
+                i = i + 1;
+            }
+
+        }
+        function reducer(state, action) {
+            console.log("state,action", state, action)
+            if (state === undefined) {
+                return {
+                    max_id:2,
+                    mode: 'create',
+                    selected_id: null,
+                    contents: [
+                        { id: 1, title: 'HTML2', desc: 'HTML is ...' },
+                        { id: 2, title: 'CSS2', desc: 'CSS is ...' }
+                    ]
+                }
+            }
+            var newState;
+            if (action.type === 'SELECT') {
+                newState = Object.assign({}, state, { selected_id: action.id })
+            }else if(action.type === 'CREATE'){
+                var newMaxId = state.max_id + 1;
+                var newContents = state.contents.concat();
+                //concat. 똑같은 배열을 복제하는 메소드
+                newContents.push({id:newMaxId, title:action.title, desc:action.desc});
+                newState = Object.assign({}, state, {
+                    max_id:newMaxId,
+                    contents:newContents,
+                    mode:'read'
+                })
+            }
+            console.log("액션, 이전스테이트, 새로만들어진스테이트", action, state, newState);
+            return newState;
+        }
+        var store = Redux.createStore(reducer);
+        store.subscribe(article);
+        store.subscribe(TOC);
+        // 아티클스테이트가 변경시 자동으로 렌더링 된다는 의미
+        TOC();
+        control();
+        article();
+        console.log("store.getState", store.getState());
+    </script>
+
+
+
+
+
+</body>
+
+</html>
